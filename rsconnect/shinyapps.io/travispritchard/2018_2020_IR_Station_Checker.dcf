@@ -1,0 +1,13 @@
+name: 2018_2020_IR_Station_Checker
+title: 2018_2020_IR_Station_Checker
+username:
+account: travispritchard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3409697
+bundleId: 4016705
+url: https://travispritchard.shinyapps.io/2018_2020_IR_Station_Checker/
+when: 1608588069.91153
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app2.R|Tools/data gather.R
