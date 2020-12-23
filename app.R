@@ -1,8 +1,3 @@
-#To do
-#   spawning continuous absolte minimum excursions not reflected
-#   Need to check if year round abs minimums need to be factored
-#   Add crosswalk database
-
 
 library(shiny)
 library(dplyr)
