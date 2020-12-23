@@ -99,7 +99,13 @@ HH_cols <- c("Antimony- Human Health excursions"                         ,  "Sel
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Monitoring Location Checker - DRAFT: NOT COMPLETE"),
+    titlePanel(
+        fluidRow(
+            column(6, img(src = "logo.png")), 
+            column(6,  "Monitoring Location Checker - DRAFT: NOT COMPLETE",style = "font-family: 'Arial'; font-si16pt; vertical-align: 'bottom'")),
+        windowTitle = "IR Monitoring Location Checker"
+    ),
+
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
@@ -120,6 +126,7 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
+            
             tableOutput('table')
         )
     )
