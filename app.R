@@ -102,7 +102,7 @@ ui <- fluidPage(
     titlePanel(
         fluidRow(
             column(6, img(src = "logo.png")), 
-            column(6,  "Monitoring Location Checker - DRAFT: NOT COMPLETE",style = "font-family: 'Arial'; font-si16pt; vertical-align: 'bottom'")),
+            column(6,  "2018/2020 IR Monitoring Location Checker - DRAFT: NOT COMPLETE",style = "font-family: 'Arial'; font-si16pt; vertical-align: 'bottom'")),
         windowTitle = "IR Monitoring Location Checker"
     ),
 
