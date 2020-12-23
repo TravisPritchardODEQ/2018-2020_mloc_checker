@@ -102,8 +102,8 @@ ui <- fluidPage(
     titlePanel(
         fluidRow(
             column(6, img(src = "logo.png")), 
-            column(6,  "2018/2020 IR Monitoring Location Checker - DRAFT: NOT COMPLETE",style = "font-family: 'Arial'; font-si16pt; vertical-align: 'bottom'")),
-        windowTitle = "IR Monitoring Location Checker"
+            column(6,  "2018/2020 IR Monitoring Location Excursion Lookup- DRAFT",style = "font-family: 'Arial'; font-si16pt; vertical-align: 'bottom'")),
+        windowTitle = "2018/2020 IR Monitoring Location Excursion Lookup"
     ),
 
 
@@ -130,10 +130,20 @@ ui <- fluidPage(
                         id = "Tabset",
             tabPanel("Instructions",
                      value = "InstructionTab",
-                     'Instruction text to come'),
+                     h2(strong(" Instructions for the 2018/2020 Integrated Report Monitoring Location Excursion Checker"), style = "font-family: 'Arial'"),
+                     p("DEQ recommends using the current version of Google Chrome or Mozilla Firefox for this application.", style = "font-family: 'times'"),
+                     p("This tool is intended to assist in determining hydrologic connectivity.", style = "font-family: 'times'"), 
+                     p("Waters within a watershed type assessment unit 
+                       (identfied by 'WS' in the AU_ID) not hydrologically connected to where data and information indicate impairment are not considered impaired.
+                       This tool is designed to assist in determining which monitoring locations indicate impairement within the 2018/2020 IR assessment.", style = "font-family: 'times'"),
+                     p("Use the filters on the left to select an assessment unit. Columns can be reduced if one or more parameter groups are selected.",style = "font-family: 'times'"),
+                     p(strong("This tool currently contains only data associated with assessments perfomred in the 2018/2020 Integrated Report. 
+                       It does not currently contain information on monitoring locations used in earlier reports",style = "font-family: 'times'"))
+                     ),
             tabPanel("Monitoring Location Information",
                      value = "Datatab",
-                     downloadButton('downloadassessmentData', label = "Download Assessment Results"),
+                     downloadButton('downloadassessmentData', label = "Download Assessment Results", class = "butt"),
+                     tags$head(tags$style(".butt{background-color:#add8e6;} .butt{color: black;}")),
                      tableOutput('table')
             )
         )
