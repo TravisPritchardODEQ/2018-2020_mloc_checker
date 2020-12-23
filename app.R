@@ -126,15 +126,24 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-            
-            tableOutput('table')
+            tabsetPanel(type = "tabs",
+                        id = "Tabset",
+            tabPanel("Instructions",
+                     value = "InstructionTab",
+                     'Instruction text to come'),
+            tabPanel("Monitoring Location Information",
+                     value = "Datatab",
+                     downloadButton('downloadassessmentData', label = "Download Assessment Results"),
+                     tableOutput('table')
+            )
         )
     )
+)
 )
 
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
 
     
     table_Data <- eventReactive(input$go,{
@@ -193,6 +202,26 @@ server <- function(input, output) {
                                 align = 'c',  
                                 na = 'Unassessed'
     )
+    
+    #Handle the download output.
+    output$downloadassessmentData <- downloadHandler(
+        filename = function() { 
+            paste("Oregon 2020 Integrated Report Monitoring Location Download", ".csv", sep="")
+        },
+        content = function(file) {
+            write.csv(table_Data(), file, row.names = FALSE,  na = "")
+        })
+    
+    
+    # When filter button is hit. move focus to data tab -----------------------
+    
+    observeEvent(input$go, {
+        updateTabsetPanel(session, "Tabset",
+                          selected = 'Datatab'
+        )
+    })
+    
+    
 }
 
 # Run the application 
