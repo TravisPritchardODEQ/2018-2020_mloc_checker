@@ -1,6 +1,7 @@
 
 library(shiny)
 library(dplyr)
+library(leaflet)
 
 
 load("data/wide_data.Rdata")
@@ -144,6 +145,8 @@ ui <- fluidPage(
                      value = "Datatab",
                      downloadButton('downloadassessmentData', label = "Download Assessment Results", class = "butt"),
                      tags$head(tags$style(".butt{background-color:#add8e6;} .butt{color: black;}")),
+                     leafletOutput("mymap"),
+                     p(),
                      tableOutput('table')
             )
         )
@@ -222,6 +225,31 @@ server <- function(input, output, session) {
             write.csv(table_Data(), file, row.names = FALSE,  na = "")
         })
     
+    output$mymap <- renderLeaflet({
+      
+        
+        leaflet() %>%
+            addTiles() %>%
+            addMarkers(data = table_Data(),
+                       lng = ~Long_DD,
+                       lat = ~Lat_DD,
+                       label = ~MLocID,
+                       popup = paste("MlocID:", table_Data()$MLocID, "<br>",
+                                     "GNIS_Name:", table_Data()$GNIS_Name, "<br>",
+                                     "Reachcode:", table_Data()$Reachcode) 
+            ) %>%
+            leaflet::addWMSTiles("https://basemap.nationalmap.gov/arcgis/services/USGSHydroCached/MapServer/WmsServer",
+                                 group = "Hydrography",
+                                 options = leaflet::WMSTileOptions(format = "image/png",
+                                                                   transparent = TRUE),
+                                 layers = "0") %>%
+            addLayersControl(
+                overlayGroups = c("Hydrography"),
+                options = layersControlOptions(collapsed = FALSE)
+            ) %>%
+            hideGroup("Hydrography")
+          
+    })
     
     # When filter button is hit. move focus to data tab -----------------------
     

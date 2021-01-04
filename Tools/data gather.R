@@ -331,6 +331,18 @@ data_wide <- all_together %>%
                              )) %>%
   pivot_wider(names_from = assessment, values_from = count_excursion) 
 
+
+con <- DBI::dbConnect(odbc::odbc(), "STATIONS")
+
+stations_db <- tbl(con, "VWStationsFinal") %>%
+  select(OrgID, MLocID, Lat_DD, Long_DD, GNIS_Name, Reachcode) %>%
+  collect()
+
+
+
+data_wide <- data_wide %>%
+  left_join(stations_db)
+
 save(data_wide, file = "data/wide_data.Rdata")
 
 
